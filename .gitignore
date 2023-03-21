@@ -1,3 +1,6 @@
 .project
 .settings/
 .classpath
+bin/Designer.class
+bin/Employee.class
+bin/Main.class

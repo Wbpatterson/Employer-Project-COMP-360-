@@ -18,7 +18,7 @@ public class Employee {
 	}
 	
 	// calculates income earned in a year
-	void calcAnuualPay()
+	void calcAnnualPay()
 	{
 		annualPay = getMonthPay() * 12;
 	}

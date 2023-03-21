@@ -16,13 +16,15 @@ public class Designer extends Employee {
 	}
 	
 	void designBonus(boolean b) {
-		
-		if(b == true) {
+		 
+		if(bonus == 10_000) {
+			System.out.println("Bonus already applied!");
+		}
+		else if(b == true) {
 			bonus += 10_000;
+			annualPay += bonus;
 		}
-		else if(bonus == 10_000) {
-			System.out.println("Bonus already applied");
-		}
+		 
 	}
 	
 	
