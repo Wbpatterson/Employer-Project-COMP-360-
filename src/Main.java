@@ -1,11 +1,13 @@
 
-import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -19,10 +21,9 @@ public class Main extends JFrame implements ActionListener {
 	String currEmployee;
 	
 	JFrame frame = new JFrame("Employee Roster");
-	JPanel panelL = new JPanel(new FlowLayout());
-	JPanel panelR = new JPanel(new FlowLayout());
+	JPanel panel = new JPanel(new GridLayout(2,0));
 	JTextArea textArea = new JTextArea();
-	JComboBox comboBox;
+	JComboBox<String> comboBox = new JComboBox<String>();;
 	
 	JTextField textField = new JTextField();
 	
@@ -30,9 +31,9 @@ public class Main extends JFrame implements ActionListener {
 	JButton designer = new JButton("add Designer");
 	JButton manager = new JButton("add Manager");
 	
-	JButton getfName = new JButton("get First Name");
-	JButton getlName = new JButton("get Last Name");
-	JButton setMonth = new JButton("Set Monthly Pay");
+	JButton getfName = new JButton("get First Name"); 		// button to retrieve first name
+	JButton getlName = new JButton("get Last Name");  		// button to retrieve last name
+	JButton setMonth = new JButton("Set Monthly Pay");	
 	JButton getMonth = new JButton("Get Monthly Pay");
 	JButton getAnnual = new JButton("Get Annual Pay");
 	JButton setAddress = new JButton("Set Address");
@@ -47,21 +48,42 @@ public class Main extends JFrame implements ActionListener {
 	
 	Main(){
 		
+		// Text Box properties
 		textArea.setBounds(450, 30, 400, 300);
+		textArea.setEditable(false);
 		
+		textField.setBounds(100, 90, 200, 30);
+		
+		// Tester Object button properties
 		tester.setBounds(450, 425, 125, 50);
 		tester.setFocusable(false);
 		tester.addActionListener(this);
-	
+		
+		// Designer Object button properties
+		designer.setBounds(450, 490, 125, 50);
+		designer.setFocusable(false);
+		designer.addActionListener(this);
+		
+		// Manager Object button properties
+		manager.setBounds(450, 550, 125, 50);
+		manager.setFocusable(false);
+		manager.addActionListener(this);
+		
+		
+		// Clear button properties 
 		clear.setBounds(450, 350, 100, 50);
 		clear.setFocusable(false);
 		clear.addActionListener(this);
 		
-		comboBox = new JComboBox<String>();
+		// Drop-down box properties
 		comboBox.setBounds(100, 30, 100, 30);
-	
+		comboBox.addActionListener(this);
 		
+		
+		frame.add(textField);
 		frame.add(comboBox);
+		frame.add(manager);
+		frame.add(designer);
 		frame.add(tester);
 		frame.add(clear);
 		frame.add(textArea);
@@ -74,48 +96,49 @@ public class Main extends JFrame implements ActionListener {
 	
 	
 	public static void main(String[] args) {
-		Tester person1 = new Tester("John", "Doe");
-		Designer person2 = new Designer("Bruce", "Wayne");
-		MarketingManager person3 = new MarketingManager("Clark", "Kent");
-		
-		/*  Tester Test Cases:
- 		person1.setmonthPay(2000);
-		person1.calcAnuualPay();
-		person1.setOt(5);
-		person1.setOtPay();
-		//System.out.println(person1.getAnnualPay() + person1.getOtPay());
-		person1.printinfo();
-		*/
-		
-		/*
-		person2.setmonthPay(4000);
-		person2.calcAnnualPay();
-		person2.calcTax();
-		person2.designBonus(true);
-		person2.designBonus(true);
-		person2.printinfo();
-		*/
-		
-		new Main();
+		//Tester person1 = new Tester("John", "Doe");
+		//Designer person2 = new Designer("Bruce", "Wayne");
+		//MarketingManager person3 = new MarketingManager("Clark", "Kent");
 
+		new Main();	
+	}
+	
+	public void createObject() {
+		String name1 = JOptionPane.showInputDialog("Enter Employee First Name:", "");
+		String name2 = JOptionPane.showInputDialog("Enter Employee Last Name:", "");
 		
+		if(name1.equals("") || name2.equals("")) {
+			textArea.append("Error must enter First and Last Name for Employee.\n");
+		}
+		else {
+			Tester tmp = new Tester(name1, name2);
+			String fullName = name1 + " " + name2;
+			employees.put(fullName, tmp);
+			comboBox.addItem(fullName);
+		}
 	}
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		// clears text area text
 		if(e.getSource()==clear) {
 			textArea.setText("");
 		}
 		
-		else if(e.getSource()==tester) {
-			Tester p1 = new Tester("Joe", "Smoe");
-			employees.put("Joe", p1 );
-			textArea.append("\nadded employee");
-			comboBox.addItem("Joe Smoe");
-			currEmployee = "Joe Smoe";
+		// assigns employee to evaluated from drop-down box
+		else if(e.getSource()==comboBox) {
+			currEmployee = (String) comboBox.getSelectedItem();
 		}
+		
+		// Creates and initializes a Designer Object
+		else if(e.getSource() == tester || e.getSource() == designer || e.getSource() == manager) {
+			createObject();
+		}
+		
+		
+		
+		
 		
 	}
 
