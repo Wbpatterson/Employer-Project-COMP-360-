@@ -103,12 +103,12 @@ public class Main extends JFrame implements ActionListener {
 		new Main();	
 	}
 	
-	public void createObject() {
-		String name1 = JOptionPane.showInputDialog("Enter Employee First Name:", "");
-		String name2 = JOptionPane.showInputDialog("Enter Employee Last Name:", "");
+	public void createTester() {
+		String name1 = JOptionPane.showInputDialog("Enter Tester First Name:", "");
+		String name2 = JOptionPane.showInputDialog("Enter Tester Last Name:", "");
 		
 		if(name1.equals("") || name2.equals("")) {
-			textArea.append("Error must enter First and Last Name for Employee.\n");
+			textArea.append("Error must enter First and Last Name for Tester\n");
 		}
 		else {
 			Tester tmp = new Tester(name1, name2);
@@ -117,6 +117,37 @@ public class Main extends JFrame implements ActionListener {
 			comboBox.addItem(fullName);
 		}
 	}
+	
+	public void createDesigner() {
+		String name1 = JOptionPane.showInputDialog("Enter Designer First Name:", "");
+		String name2 = JOptionPane.showInputDialog("Enter Designer Last Name:", "");
+		
+		if(name1.equals("") || name2.equals("")) {
+			textArea.append("Error must enter First and Last Name for Designer.\n");
+		}
+		else {
+			Designer tmp = new Designer(name1, name2);
+			String fullName = name1 + " " + name2;
+			employees.put(fullName, tmp);
+			comboBox.addItem(fullName);
+		}
+	}
+	
+	public void createManager() {
+		String name1 = JOptionPane.showInputDialog("Enter Manager First Name:", "");
+		String name2 = JOptionPane.showInputDialog("Enter Manager Last Name:", "");
+		
+		if(name1.equals("") || name2.equals("")) {
+			textArea.append("Error must enter First and Last Name for Manager.\n");
+		}
+		else {
+			MarketingManager tmp = new MarketingManager(name1, name2);
+			String fullName = name1 + " " + name2;
+			employees.put(fullName, tmp);
+			comboBox.addItem(fullName);
+		}
+	}
+	
 
 
 	@Override
@@ -131,11 +162,20 @@ public class Main extends JFrame implements ActionListener {
 			currEmployee = (String) comboBox.getSelectedItem();
 		}
 		
-		// Creates and initializes a Designer Object
-		else if(e.getSource() == tester || e.getSource() == designer || e.getSource() == manager) {
-			createObject();
+		// Creates and initializes a Tester Object 
+		else if(e.getSource()==tester) {
+			createTester();
 		}
 		
+		// Creates and initializes a Designer Object
+		else if(e.getSource()==designer) {
+			createDesigner();
+		}
+		
+		// Creates and initializes a MarketingManager Object
+		else if(e.getSource()==manager) {
+			createManager();
+		}
 		
 		
 		
