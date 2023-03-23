@@ -18,7 +18,7 @@ public class Main extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	public HashMap<String, Employee> employees = new HashMap<String, Employee>();
-	String currEmployee;
+	String currEmployee = "";
 	
 	JFrame frame = new JFrame("Employee Roster");
 	JPanel panel = new JPanel(new GridLayout(2,0));
@@ -44,6 +44,7 @@ public class Main extends JFrame implements ActionListener {
 	JButton designBonus = new JButton("Designer Bonus");
 	JButton managerBonus = new JButton("Manager Bonus");
 	JButton clear = new JButton("clear");
+	JButton printInfo = new JButton("Print Info");
 	
 	
 	Main(){
@@ -53,6 +54,7 @@ public class Main extends JFrame implements ActionListener {
 		textArea.setEditable(false);
 		
 		textField.setBounds(100, 90, 200, 30);
+		textField.setToolTipText("Enter info");
 		
 		// Tester Object button properties
 		tester.setBounds(450, 425, 125, 50);
@@ -69,17 +71,22 @@ public class Main extends JFrame implements ActionListener {
 		manager.setFocusable(false);
 		manager.addActionListener(this);
 		
-		
 		// Clear button properties 
-		clear.setBounds(450, 350, 100, 50);
+		clear.setBounds(600, 350, 100, 50);
 		clear.setFocusable(false);
 		clear.addActionListener(this);
 		
+		// Print Info button properties
+		printInfo.setBounds(100, 150, 125, 50);
+		printInfo.setFocusable(false);
+		printInfo.addActionListener(this);
+		
 		// Drop-down box properties
-		comboBox.setBounds(100, 30, 100, 30);
+		comboBox.setBounds(100, 30, 130, 30);
 		comboBox.addActionListener(this);
 		
-		
+		// frame additions 
+		frame.add(printInfo);
 		frame.add(textField);
 		frame.add(comboBox);
 		frame.add(manager);
@@ -87,9 +94,12 @@ public class Main extends JFrame implements ActionListener {
 		frame.add(tester);
 		frame.add(clear);
 		frame.add(textArea);
+		
+		// frame properties
 		frame.setSize(900, 800);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frame.setLayout(null);
+		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
@@ -103,18 +113,23 @@ public class Main extends JFrame implements ActionListener {
 		new Main();	
 	}
 	
+	
 	public void createTester() {
 		String name1 = JOptionPane.showInputDialog("Enter Tester First Name:", "");
-		String name2 = JOptionPane.showInputDialog("Enter Tester Last Name:", "");
+		String name2 = JOptionPane.showInputDialog("Enter Tester First Name:", "");
 		
-		if(name1.equals("") || name2.equals("")) {
+		if(name1 == null || name2 == null) {
+			textArea.append("Caneceled\n");
+		}
+		else if(name1 == "" || name2 == "") {
 			textArea.append("Error must enter First and Last Name for Tester\n");
 		}
 		else {
 			Tester tmp = new Tester(name1, name2);
-			String fullName = name1 + " " + name2;
+			String fullName = name1 + "" + name2;
 			employees.put(fullName, tmp);
 			comboBox.addItem(fullName);
+			textArea.append("Added Designer " + fullName + "\n" );
 		}
 	}
 	
@@ -122,14 +137,19 @@ public class Main extends JFrame implements ActionListener {
 		String name1 = JOptionPane.showInputDialog("Enter Designer First Name:", "");
 		String name2 = JOptionPane.showInputDialog("Enter Designer Last Name:", "");
 		
-		if(name1.equals("") || name2.equals("")) {
-			textArea.append("Error must enter First and Last Name for Designer.\n");
+		if(name1 == null || name2 == null) {
+			textArea.append("Caneceled\n");
+		}
+		else if(name1 == "" || name2 == "") {
+			textArea.append("Error must enter First and Last Name for Tester\n");
 		}
 		else {
 			Designer tmp = new Designer(name1, name2);
-			String fullName = name1 + " " + name2;
+			String fullName = name1 + "" + name2;
 			employees.put(fullName, tmp);
 			comboBox.addItem(fullName);
+			textArea.append("Added Tester " + fullName + "\n");
+			comboBox.getModel();
 		}
 	}
 	
@@ -137,19 +157,22 @@ public class Main extends JFrame implements ActionListener {
 		String name1 = JOptionPane.showInputDialog("Enter Manager First Name:", "");
 		String name2 = JOptionPane.showInputDialog("Enter Manager Last Name:", "");
 		
-		if(name1.equals("") || name2.equals("")) {
-			textArea.append("Error must enter First and Last Name for Manager.\n");
+		if(name1 == null || name2 == null) {
+			textArea.append("Caneceled\n");
+		}
+		else if(name1 == "" || name2 == "") {
+			textArea.append("Error must enter First and Last Name for Tester\n");
 		}
 		else {
 			MarketingManager tmp = new MarketingManager(name1, name2);
-			String fullName = name1 + " " + name2;
+			String fullName = name1 + "" + name2;
 			employees.put(fullName, tmp);
 			comboBox.addItem(fullName);
+			textArea.append("Added Manager " + fullName + "\n");
 		}
 	}
 	
-
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// clears text area text
@@ -177,9 +200,18 @@ public class Main extends JFrame implements ActionListener {
 			createManager();
 		}
 		
-		
-		
-		
+		// Prints Employee Info 
+		else if (e.getSource()==printInfo) {
+			if(currEmployee == "") {
+				textArea.append("No Employee selected\n");
+			}
+			else {
+				Employee person = employees.get(currEmployee);
+				textArea.append("First Name: "+ person.getFirstName() + "\n");
+				textArea.append("Last Name: "+ person.getLastName() + "\n");
+				//textArea.append()
+			}
+			
+		}
 	}
-
 }

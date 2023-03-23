@@ -7,8 +7,16 @@ public class Employee {
 	public int ssn;
 	static double tax = 0.0475; // tax rate is 4.75 %
 	
+	String getFirstName() {
+		return firstName;
+	}
+	
+	String getLastName() {
+		return lastName;
+	}
+	
 	// set payment for a month
-	void setmonthPay(int num){
+	void setMonthPay(int num){
 		monthPay = num;
 	}
 	
@@ -39,16 +47,7 @@ public class Employee {
 	double getTax() {
 		return taxPay;
 	}
-	
-	void printinfo() {
-		System.out.println("Frist Name: " + firstName);
-		System.out.println("Last Name: " + lastName);
-		System.out.println("Job: " + job);
-		System.out.println("Address: " + address);
-		System.out.println("Monthly Pay: " + monthPay);
-		System.out.println("Annual Pay: " + annualPay);
-	}
-	
+		
 }
 
 
