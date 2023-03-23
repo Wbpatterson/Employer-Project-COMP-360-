@@ -31,20 +31,20 @@ public class Main extends JFrame implements ActionListener {
 	JButton designer = new JButton("add Designer");
 	JButton manager = new JButton("add Manager");
 	
-	JButton getfName = new JButton("get First Name"); 		// button to retrieve first name
-	JButton getlName = new JButton("get Last Name");  		// button to retrieve last name
-	JButton setMonth = new JButton("Set Monthly Pay");	
-	JButton getMonth = new JButton("Get Monthly Pay");
-	JButton getAnnual = new JButton("Get Annual Pay");
-	JButton setAddress = new JButton("Set Address");
-	JButton getAddress = new JButton("Get Address");
-	JButton setOvertimeHr = new JButton("Set Overtime Hr");
-	JButton getOvertimeHr = new JButton("Get Overtime Hr");
-	JButton getOvertimePay = new JButton("Get Overtime Pay");
-	JButton designBonus = new JButton("Designer Bonus");
-	JButton managerBonus = new JButton("Manager Bonus");
-	JButton clear = new JButton("clear");
-	JButton printInfo = new JButton("Print Info");
+	JButton getfName = new JButton("get First Name"); 			// button to retrieve first name
+	JButton getlName = new JButton("get Last Name");  			// button to retrieve last name
+	JButton setMonth = new JButton("Set Monthly Pay");			// button to set/change the Monthly Payment
+	JButton getMonth = new JButton("Get Monthly Pay");      	// button to retrieve Monthly Payment
+	JButton getAnnual = new JButton("Get Annual Pay");      	// button to retrieve Annual Payment
+	JButton setAddress = new JButton("Set Address");			// button to set/change Address
+	JButton getAddress = new JButton("Get Address");			// button to retrieve Address
+	JButton setOvertimeHr = new JButton("Set Overtime Hr"); 	// button to set/change Over-time Hours
+	JButton getOvertimeHr = new JButton("Get Overtime Hr"); 	// button to retrieve Over-time Hours
+	JButton getOvertimePay = new JButton("Get Overtime Pay");   // button to retrieve Over-time Pay
+	JButton designBonus = new JButton("Designer Bonus");        // button to apply a Designer Bonus
+	JButton managerBonus = new JButton("Manager Bonus");		// button  to a apply a Marketing Manager Bonus
+	JButton clear = new JButton("clear");                       // button to clear text box
+	JButton printInfo = new JButton("Print Info");              // button to print all an employees info
 	
 	
 	Main(){
@@ -84,10 +84,11 @@ public class Main extends JFrame implements ActionListener {
 		// Drop-down box properties
 		comboBox.setBounds(100, 30, 130, 30);
 		comboBox.addActionListener(this);
+		comboBox.getSelectedIndex();
 		
 		// frame additions 
 		frame.add(printInfo);
-		frame.add(textField);
+		//frame.add(textField);
 		frame.add(comboBox);
 		frame.add(manager);
 		frame.add(designer);
@@ -114,64 +115,34 @@ public class Main extends JFrame implements ActionListener {
 	}
 	
 	
-	public void createTester() {
-		String name1 = JOptionPane.showInputDialog("Enter Tester First Name:", "");
-		String name2 = JOptionPane.showInputDialog("Enter Tester First Name:", "");
+	public void createEmployee(String position) {
+		JTextField field1 = new JTextField();
+		JTextField field2 = new JTextField();
 		
-		if(name1 == null || name2 == null) {
-			textArea.append("Caneceled\n");
+		Object[] fields = {
+				"First Name: ",  field1,
+				"Last Name: ", field2
+		};
+		
+		JOptionPane.showConfirmDialog(null, fields, "Create Employee ", JOptionPane.OK_CANCEL_OPTION);
+		
+		if(field1.getText() == null || field2.getText() == null) 
+		{ 
+			textArea.append("Canceled\n");
 		}
-		else if(name1 == "" || name2 == "") {
-			textArea.append("Error must enter First and Last Name for Tester\n");
+		else if(field1.getText().equals("") || field2.getText().equals("")) 
+		{ 
+			textArea.append("Error must enter First and Last Name for " + position + "\n");
 		}
-		else {
-			Tester tmp = new Tester(name1, name2);
-			String fullName = name1 + "" + name2;
+		else 
+		{
+			Tester tmp = new Tester(field1.getText(), field2.getText());
+			String fullName = field1.getText().strip() + " " + field2.getText().strip();
 			employees.put(fullName, tmp);
 			comboBox.addItem(fullName);
-			textArea.append("Added Designer " + fullName + "\n" );
+			textArea.append("Added " + position  + " " + fullName + "\n" );
 		}
 	}
-	
-	public void createDesigner() {
-		String name1 = JOptionPane.showInputDialog("Enter Designer First Name:", "");
-		String name2 = JOptionPane.showInputDialog("Enter Designer Last Name:", "");
-		
-		if(name1 == null || name2 == null) {
-			textArea.append("Caneceled\n");
-		}
-		else if(name1 == "" || name2 == "") {
-			textArea.append("Error must enter First and Last Name for Tester\n");
-		}
-		else {
-			Designer tmp = new Designer(name1, name2);
-			String fullName = name1 + "" + name2;
-			employees.put(fullName, tmp);
-			comboBox.addItem(fullName);
-			textArea.append("Added Tester " + fullName + "\n");
-			comboBox.getModel();
-		}
-	}
-	
-	public void createManager() {
-		String name1 = JOptionPane.showInputDialog("Enter Manager First Name:", "");
-		String name2 = JOptionPane.showInputDialog("Enter Manager Last Name:", "");
-		
-		if(name1 == null || name2 == null) {
-			textArea.append("Caneceled\n");
-		}
-		else if(name1 == "" || name2 == "") {
-			textArea.append("Error must enter First and Last Name for Tester\n");
-		}
-		else {
-			MarketingManager tmp = new MarketingManager(name1, name2);
-			String fullName = name1 + "" + name2;
-			employees.put(fullName, tmp);
-			comboBox.addItem(fullName);
-			textArea.append("Added Manager " + fullName + "\n");
-		}
-	}
-	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -187,17 +158,16 @@ public class Main extends JFrame implements ActionListener {
 		
 		// Creates and initializes a Tester Object 
 		else if(e.getSource()==tester) {
-			createTester();
+			createEmployee("Tester");
 		}
 		
 		// Creates and initializes a Designer Object
 		else if(e.getSource()==designer) {
-			createDesigner();
+			createEmployee("Designer");
 		}
-		
 		// Creates and initializes a MarketingManager Object
 		else if(e.getSource()==manager) {
-			createManager();
+			createEmployee("Marketing Manager");
 		}
 		
 		// Prints Employee Info 
@@ -209,7 +179,6 @@ public class Main extends JFrame implements ActionListener {
 				Employee person = employees.get(currEmployee);
 				textArea.append("First Name: "+ person.getFirstName() + "\n");
 				textArea.append("Last Name: "+ person.getLastName() + "\n");
-				//textArea.append()
 			}
 			
 		}
