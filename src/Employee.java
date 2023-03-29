@@ -42,19 +42,14 @@ public class Employee {
 	// set payment for a month
 	void setMonthPay(int num) {
 		monthPay = num;
+		annualPay = num * 12;
 	}
 	
 	// retrieves payment for a month
 	double getMonthPay() { 
 		return monthPay;
 	}
-	
-	// calculates income earned in a year
-	void calcAnnualPay() { 
-		annualPay = getMonthPay() * 12; 
-		}
-	
-	
+		
 	// retrieves income for a year
 	double getAnnualPay() { 
 		return annualPay; 
