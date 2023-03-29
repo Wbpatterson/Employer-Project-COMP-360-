@@ -1,5 +1,9 @@
 
-public class Employee {
+
+public class Employee { 
+	
+	// Class declares variables that will be shared amongst all employee types
+	// Declares basic setters and getters for each variable
 
 	public String firstName, lastName;
 	public String address, job;
@@ -7,34 +11,55 @@ public class Employee {
 	public int ssn;
 	static double tax = 0.0475; // tax rate is 4.75 %
 	
-	String getFirstName() {
-		return firstName;
+	void setFirstName(String n) { 
+		firstName = n; 
 	}
 	
-	String getLastName() {
-		return lastName;
+	String getFirstName() { 
+		return firstName; 
+	}
+	
+	void setLastName(String n) { 
+		lastName = n;
+	}
+	
+	String getLastName() { 
+		return lastName; 
+	}
+	
+	void setAddress(String location) { 
+		address = location;
+	}
+	
+	String getAddress() { 
+		return address;
+	}
+	
+	String getJob() { 
+		return job; 
 	}
 	
 	// set payment for a month
-	void setMonthPay(int num){
+	void setMonthPay(int num) {
 		monthPay = num;
 	}
 	
 	// retrieves payment for a month
-	double getMonthPay() {
+	double getMonthPay() { 
 		return monthPay;
 	}
 	
 	// calculates income earned in a year
-	void calcAnnualPay()
-	{
-		annualPay = getMonthPay() * 12;
-	}
+	void calcAnnualPay() { 
+		annualPay = getMonthPay() * 12; 
+		}
+	
 	
 	// retrieves income for a year
-	double getAnnualPay() {
-		return annualPay;
+	double getAnnualPay() { 
+		return annualPay; 
 	}
+	
 	
 	// calculates taxes that must be paid
 	void calcTax() 
@@ -44,9 +69,7 @@ public class Employee {
 	}
 	
 	// retrieves taxes to be paid
-	double getTax() {
-		return taxPay;
-	}
+	double getTax() { return taxPay; }
 		
 }
 

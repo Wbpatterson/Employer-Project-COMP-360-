@@ -5,7 +5,6 @@ public class Designer extends Employee {
 	
 	Designer() {}
 	
-	// constructor
 	Designer(String fname, String lname){
 		firstName = fname;
 		lastName = lname;
@@ -13,6 +12,10 @@ public class Designer extends Employee {
 		address = "unkown";
 		monthPay = annualPay = taxPay = ssn = 0;
 		bonus = 0;
+	}
+	
+	double getBonus() {
+		return bonus;
 	}
 	
 	void designBonus(boolean b) {

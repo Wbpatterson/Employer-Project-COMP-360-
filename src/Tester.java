@@ -6,7 +6,6 @@ public class Tester extends Employee {
 	
 	Tester() {}
 	
-	// constructor
 	Tester(String fname, String lname){
 		firstName = fname;
 		lastName = lname;
@@ -21,7 +20,7 @@ public class Tester extends Employee {
 		overtimeHr = n;
 	}
 	
-	int getOt() {
+     int getOt() {
 		return overtimeHr;
 	}
 	
