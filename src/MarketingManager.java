@@ -5,7 +5,6 @@ public class MarketingManager extends Employee{
 	
 	MarketingManager() {}
 	
-	// constructor 
 	MarketingManager(String fname, String lname) {
 		firstName = fname;
 		lastName = lname;
@@ -14,16 +13,21 @@ public class MarketingManager extends Employee{
 		monthPay = annualPay = taxPay = ssn = 0;
 		bonus = 0;
 	}
+
+	double getBonus() {
+		return bonus;
+	}
 	
-	void managerBonus(boolean b) {
+	void managerBonus() {
 		
-		if(b == true) {
-			bonus += 5_000;
-			monthPay += (monthPay * 0.01);
+		if(bonus == 5_000 || monthPay==0) {
+			return;
 		}
-		else if(bonus == 5_000) {
-			System.out.println("Bonus already applied");
-		}
+		
+		bonus += 5_000;
+		monthPay += (monthPay * 0.01);
+		annualPay = (monthPay * 12) + bonus;
+		
 	}
 	
 	

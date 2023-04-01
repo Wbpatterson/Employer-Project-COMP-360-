@@ -5,7 +5,6 @@ public class Designer extends Employee {
 	
 	Designer() {}
 	
-	// constructor
 	Designer(String fname, String lname){
 		firstName = fname;
 		lastName = lname;
@@ -15,16 +14,20 @@ public class Designer extends Employee {
 		bonus = 0;
 	}
 	
-	void designBonus(boolean b) {
+	double getBonus() {
+		return bonus;
+	}
+	
+	void designBonus() {
 		 
-		if(bonus == 10_000) {
-			System.out.println("Bonus already applied!");
+		if(bonus == 10_000 || monthPay==0) {
+			return;
 		}
-		else if(b == true) {
-			bonus += 10_000;
-			annualPay += bonus;
-		}
-		 
+	
+		bonus += 10_000;
+		annualPay += bonus;
+	
+			 
 	}
 	
 	
