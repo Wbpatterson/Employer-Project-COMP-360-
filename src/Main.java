@@ -14,6 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Main implements ActionListener {
@@ -35,25 +37,20 @@ public class Main implements ActionListener {
 	JButton designer = new JButton("add Designer");
 	JButton manager = new JButton("add Manager");
 	
-	JButton getfName = new JButton("get First Name"); 			// button to retrieve first name -> delete possibly
-	JButton getlName = new JButton("get Last Name");  			// button to retrieve last name  -> delete possibly
 	JButton setMonth = new JButton("Set Monthly Pay");			// button to set/change the Monthly Payment
-	JButton getMonth = new JButton("Get Monthly Pay");      	// button to retrieve Monthly Payment
-	JButton getAnnual = new JButton("Get Annual Pay");      	// button to retrieve Annual Payment
 	JButton setAddress = new JButton("Set Address");			// button to set/change Address
-	JButton getAddress = new JButton("Get Address");			// button to retrieve Address
-	JButton setOvertimeHr = new JButton("Set Overtime Hr"); 	// button to set/change Over-time Hours
-	JButton getOvertimeHr = new JButton("Get Overtime Hr"); 	// button to retrieve Over-time Hours
-	JButton getOvertimePay = new JButton("Get Overtime Pay");   // button to retrieve Over-time Pay
-	JButton designBonus = new JButton("Designer Bonus");        // button to apply a Designer Bonus
-	JButton managerBonus = new JButton("Manager Bonus");		// button  to a apply a Marketing Manager Bonus
+	JButton setOvertimeHr = new JButton("Set Overtime Hr"); 	// button to set/change Over-time Hour
 	JButton clear = new JButton("clear");                       // button to clear text box
 	JButton printInfo = new JButton("Print Info");              // button to print all an employees info 
+	JButton setDesignBonus = new JButton("Designer Bonus");
+	JButton setManagerBonus = new JButton("Manager Bonus");
+	JButton setSSN = new JButton("set Social Security Number");
 	
 	
 	Main(){
 		// panel for setters
 		panel1.setBounds(50, 150, 200, 500);
+		panel1.setBackground(Color.black);
 		//panel1.setBackground(Color.gray);
 		
 		panel2.setBounds(265,150, 150, 500);
@@ -108,10 +105,15 @@ public class Main implements ActionListener {
 		setOvertimeHr.setFocusable(false);
 		setOvertimeHr.addActionListener(this);
 		
-		// get first name button
-		getfName.setPreferredSize(new Dimension(150,50));
-		getfName.setFocusable(false);
-		getfName.addActionListener(this);
+		// set Bonus button (Designer only)
+		setDesignBonus.setPreferredSize(new Dimension(150,50));
+		setDesignBonus.setFocusable(false);
+		setDesignBonus.addActionListener(this);
+		
+		// set Bonus button (Marketing Manager only)
+		setManagerBonus.setPreferredSize(new Dimension(150,50));
+		setManagerBonus.setFocusable(false);
+		setManagerBonus.addActionListener(this);
 		
 		// Drop-down box properties
 		comboBox.setBounds(100, 30, 200, 30);
@@ -119,14 +121,15 @@ public class Main implements ActionListener {
 		comboBox.getSelectedIndex();
 		
 		// panel additions 
+		panel1.add(setManagerBonus);
+		panel1.add(setDesignBonus);
 		panel1.add(printInfo);
 		panel1.add(setAddress);
 		panel1.add(setMonth);
 		panel1.add(setOvertimeHr);
-		//panel.add(getfName);
 		
 		// frame additions 
-		frame.add(panel2);
+		//frame.add(panel2);
 		frame.add(panel1);
 		frame.add(comboBox);
 		frame.add(manager);
@@ -136,6 +139,7 @@ public class Main implements ActionListener {
 		frame.add(scroll);
 		
 		// frame properties
+		frame.getContentPane().setBackground(Color.gray);
 		frame.setSize(900, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(null);
@@ -144,9 +148,9 @@ public class Main implements ActionListener {
 		frame.setVisible(true);
 	}
 	
-	Employee createObject(String  job, String fname, String lname) {
+	Employee createObject(String  job, String fname, String lname, String location, int social) {
 		if(job.equals("Tester")) {
-			Tester tmp = new Tester(fname, lname);
+			Tester tmp = new Tester(fname, lname, location, social);
 			return tmp;
 		}
 		
@@ -166,10 +170,14 @@ public class Main implements ActionListener {
 	void createEmployee(String job) {
 		JTextField firstName = new JTextField();
 		JTextField lastName = new JTextField();
+		JTextField location = new JTextField();
+		JTextField social = new JTextField();
 		
 		Object[] fields = {
 				"First Name: ",  firstName,
-				"Last Name: ", lastName
+				"Last Name: ", lastName,
+				"Address: ",  location,
+				"Social Securit Number: ", social,
 		};
 		
 		// Creates dimensions for box that ask basic information to construct Employee
@@ -186,7 +194,9 @@ public class Main implements ActionListener {
 			return;
 		}	
 	
-		var tmp = createObject(job, firstName.getText(), lastName.getText());
+		int convert = Integer.parseInt(social.getText());
+		
+		var tmp = createObject(job, firstName.getText(), lastName.getText(), location.getText(), convert);
 		String fullName = firstName.getText().strip() + " " + lastName.getText().strip();
 		employees.put(fullName, tmp);
 		comboBox.addItem(fullName);
@@ -205,9 +215,9 @@ public class Main implements ActionListener {
 	
     void basicInfo(MarketingManager person) {
     	textArea.append("Manager Bonus: $" + person.getBonus() + "\n");
-
 	}
 	
+    
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -244,15 +254,16 @@ public class Main implements ActionListener {
 			}
 
 			var person = employees.get(currEmployee);
-			textArea.append("------Employee Info------\n");
+			textArea.append(" -------------------------Employee Info----------------------------\n");
 			textArea.append("First Name: "+ person.getFirstName() + "\n");
 			textArea.append("Last Name: "+ person.getLastName() + "\n");
 			textArea.append("Address: "+ person.getAddress( ) + "\n");
+			textArea.append("Social Security Number: "+ person.getSSN( ) + "\n");
 			textArea.append("Job: " + person.getJob() + "\n");
 			textArea.append("Monthly Payment: $" + person.getMonthPay() + "\n");
 			textArea.append("Gross Annual Payment: $" + person.getAnnualPay() + "\n");
 			textArea.append("Post-Tax Annual Payment: $" + (person.getAnnualPay() - person.getTax()) + "\n");
-			
+	
 			switch(person.getJob()) {
 			
 			case "Tester": basicInfo((Tester) person);
@@ -264,19 +275,11 @@ public class Main implements ActionListener {
 			case "Marketing Manager": basicInfo((MarketingManager) person);
 									  break;
 			}
+			
+			textArea.append(" ------------------------------------------------------------------------\n");
+			
 		}
 		
-		else if(e.getSource()==getfName) {
-			
-			if(currEmployee == "") {
-				textArea.append("No Employee selected\n");
-				return;
-			}
-			
-			Employee person = employees.get(currEmployee);
-			textArea.append("First Name: " + person.getFirstName() + "\n");
-			
-		}
 		
 		else if(e.getSource()==setAddress) {
 			
@@ -299,11 +302,6 @@ public class Main implements ActionListener {
 		
 			String tmp = JOptionPane.showInputDialog("Enter Monthly Payment", null);
 			
-			if(tmp == null || tmp.equals("")) {
-				textArea.append("Canceled\n");
-				return;
-			}
-			
 			int monthPayment = Integer.parseInt(tmp);
 			
 			Employee person = employees.get(currEmployee);
@@ -320,25 +318,73 @@ public class Main implements ActionListener {
 			
 			Employee person = employees.get(currEmployee);
 			if(!person.getJob().equals("Tester")) {
-				textArea.append("Error only Testers can apply Over-time Hours");
+				textArea.append("Error only Testers can apply Over-time Hours\n");
 				return;
 			}
 			
 			if(person.getMonthPay() == 0) {
-				textArea.append("Error Monthly Pay Rate has not been set");
+				textArea.append("Error Monthly Pay Rate has not been set\n");
 				return;
 			}
 			
 			int hours = Integer.parseInt(JOptionPane.showInputDialog("Enter the total Worked Overtime hours")); 
 			Tester person2 = (Tester) employees.get(currEmployee);
 			person2.setOt(hours);
-			person2.setOtPay();
+			person2.setOtPay(); // Applies overtime pay to annual pay 
 			person2.applyOt();
 			person2.calcTax();
 		}
 		
+		else if(e.getSource()==setDesignBonus) {
+			
+			if(currEmployee == "") {
+				textArea.append("No Employee selected\n");
+				return;
+			}
+			
+			Employee person = employees.get(currEmployee);
+			if(!person.getJob().equals("DesigncomboBoxer")) {
+				textArea.append("Bonus can only be applied to Designer\n");
+				return;
+			}
+			
+			Designer person2 = (Designer) employees.get(currEmployee);
+			
+			if(person2.getBonus() == 10_000) {
+				textArea.append("Designer Bonus already Applied\n");
+			}
+			else {
+				person2.designBonus();
+				textArea.append("$10,000 Bonus Applied!\n");
+			}	
+		}
 		
-		
+		else if(e.getSource()==setManagerBonus) {
+			
+			if(currEmployee == "") {
+				textArea.append("No Employee selected\n");
+				return;
+			}
+			
+			Employee person = employees.get(currEmployee);
+			if(!person.getJob().equals("Marketing Manager")) {
+				textArea.append("Bonus can only be applied to Marketing Managerr\n");
+				return;
+			}
+			
+			MarketingManager person2 = (MarketingManager) employees.get(currEmployee);
+			
+			if(person2.getBonus() == 5_000) {
+				textArea.append("Marketing Manager Bonus already applied\n");
+			}
+			else if(person2.getMonthPay() == 0) {
+				textArea.append("");
+			}
+			else {
+				person2.managerBonus();
+				textArea.append("Markeitng Manager Bonus applied\n");
+			}
+		}	
 	}
 	
 	

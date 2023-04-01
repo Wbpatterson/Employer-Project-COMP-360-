@@ -39,6 +39,10 @@ public class Employee {
 		return job; 
 	}
 	
+	int getSSN() {
+		return ssn;
+	}
+	
 	// set payment for a month
 	void setMonthPay(int num) {
 		monthPay = num;

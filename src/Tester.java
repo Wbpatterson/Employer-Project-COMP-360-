@@ -6,12 +6,13 @@ public class Tester extends Employee {
 	
 	Tester() {}
 	
-	Tester(String fname, String lname){
+	Tester(String fname, String lname, String location, int social){
 		firstName = fname;
 		lastName = lname;
 		job = "Tester";
-		address = "unknown";
-		monthPay = annualPay = taxPay = ssn = 0;
+		address = location;
+		monthPay = annualPay = taxPay = 0;
+		ssn = social;
 		overtimeHr = 0;
 		overtimePay = 0;
 	}

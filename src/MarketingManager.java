@@ -18,15 +18,16 @@ public class MarketingManager extends Employee{
 		return bonus;
 	}
 	
-	void managerBonus(boolean b) {
+	void managerBonus() {
 		
-		if(bonus == 5_000) {
-			System.out.println("Bonus already applied");
+		if(bonus == 5_000 || monthPay==0) {
+			return;
 		}
-		else if(b == true) {
-			bonus += 5_000;
-			monthPay += (monthPay * 0.01);
-		}
+		
+		bonus += 5_000;
+		monthPay += (monthPay * 0.01);
+		annualPay = (monthPay * 12) + bonus;
+		
 	}
 	
 	
