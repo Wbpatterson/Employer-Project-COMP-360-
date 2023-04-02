@@ -43,6 +43,13 @@ public class Employee {
 		return ssn;
 	}
 	
+	void setSSN(int n) {
+		ssn = n;
+	}
+	double getTaxRate() {
+		return tax*100;
+	}
+	
 	// set payment for a month
 	void setMonthPay(int num) {
 		monthPay = num;
