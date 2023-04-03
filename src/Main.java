@@ -216,10 +216,11 @@ public class Main implements ActionListener {
 		
 		String fullName = firstName.getText().strip() + " " + lastName.getText().strip();
 		
+		employees.remove(currEmployee);      // deletes name from HashMap
 		comboBox.removeItem(currEmployee);   // removes name/key from comboBox/drop-down window
-		employees.remove(currEmployee);      // removes old info from HashMap
 		employees.put(fullName, person);     // inserts new info into HashMap 
 		comboBox.addItem(fullName);          // inserts new name/key into comboBox/drop-down window
+		comboBox.setSelectedItem(fullName);
 	}
 	
 	// Creates Employee object when buttons to add Tester, Designer and Manager are Selected
@@ -261,6 +262,7 @@ public class Main implements ActionListener {
 		String fullName = firstName.getText().strip() + " " + lastName.getText().strip(); // creates full name with above fields getting rid of extra space 
 		employees.put(fullName, tmp);   // inserts info into HashMap
 		comboBox.addItem(fullName);     // inserts fullName/key into comboBox/drop-down window
+		comboBox.setSelectedItem(fullName);
 		textArea.append("Added " + job + " " + fullName + "\n" );
 		
 	}
