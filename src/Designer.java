@@ -4,8 +4,6 @@ public class Designer extends Employee {
 	private double bonus;
 	private double profit;
 	
-	Designer() {}
-	
 	Designer(String fname, String lname, String location, int social){
 		firstName = fname;
 		lastName = lname;
@@ -17,18 +15,23 @@ public class Designer extends Employee {
 		bonus = 0;
 	}
 	
+	
+	// Sets total Profits
 	void setPorfit(double n) {
 		profit = n;
 	}
 	
+	// Returns Best Product Profits
 	double getProfit() {
-		return profit;
+		return round(profit);
 	}
 	
+	// Returns amount of Bonus
 	double getBonus() {
 		return bonus;
 	}
 	
+	// Applies Bonus if not already applied 
 	void designBonus() {
 		 
 		if(bonus == 10_000 || monthPay==0) {

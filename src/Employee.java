@@ -51,32 +51,34 @@ public class Employee {
 	}
 	
 	// set payment for a month
-	void setMonthPay(int num) {
+	void setMonthPay(double num) {
 		monthPay = num;
 		annualPay = num * 12;
 	}
 	
 	// retrieves payment for a month
 	double getMonthPay() { 
-		return monthPay;
+		return round(monthPay);
 	}
 		
 	// retrieves income for a year
 	double getAnnualPay() { 
-		return annualPay; 
+		return round(annualPay); 
 	}
 	
-	
-	// calculates taxes that must be paid
-	void calcTax() 
-	{
-		double tmp = tax*annualPay;
-		taxPay = tmp;
-	}
 	
 	// retrieves taxes to be paid
-	double getTax() { return taxPay; }
+	double getTax() { 
+		double tmp = tax*annualPay;
+		taxPay = tmp;
 		
+		return round(tmp); 
+	}
+		
+	double round(double n) {
+    	double roundOff = (double) Math.round(n * 100) / 100;
+    	return roundOff;
+    }
 }
 
 

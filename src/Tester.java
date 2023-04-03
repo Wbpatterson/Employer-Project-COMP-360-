@@ -1,10 +1,8 @@
 
 public class Tester extends Employee {
 	
-	private int overtimeHr;
+	private double overtimeHr;
 	private double overtimePay;
-	
-	Tester() {}
 	
 	Tester(String fname, String lname, String location, int social){
 		firstName = fname;
@@ -17,17 +15,17 @@ public class Tester extends Employee {
 		overtimePay = 0;
 	}
 	
-	// Set Overtime Hours
-	void setOt(int n) {
+	// Sets Overtime Hours
+	void setOt(double n) {
 		overtimeHr = n;
 	}
 	
-	// Get Overtime Hours
-     int getOt() {
-		return overtimeHr;
+	// Returns Overtime Hours
+     double getOt() {
+		return round(overtimeHr);
 	}
 	
-	// set payment for overtime work 
+	// Set payment for overtime work 
 	void setOtPay() {
 		
 		if(overtimePay != 0) {
@@ -35,13 +33,13 @@ public class Tester extends Employee {
 		}
 		
 		// formula calculates hourly wage based on 40 hour work week 5 days at work each week
-		double div = ((getMonthPay() / 4) /5) / 8;
+		double div = ((monthPay / 4) /5) / 8;
 		overtimePay = (div*2) * overtimeHr;
 	}
 	
-	// Get Overtime Pay
+	// Return Overtime Pay
 	double getOtPay() {
-		return overtimePay;
+		return round(overtimePay);
 	}
 	
 	// Apply Overtime Pay to Annual Pay

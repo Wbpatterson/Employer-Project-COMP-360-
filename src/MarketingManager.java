@@ -4,8 +4,6 @@ public class MarketingManager extends Employee{
 	private double bonus;
 	private int sales;
 	
-	MarketingManager() {}
-	
 	MarketingManager(String fname, String lname, String location, int social) {
 		firstName = fname;
 		lastName = lname;
@@ -17,18 +15,22 @@ public class MarketingManager extends Employee{
 		bonus = 0;
 	}
 	
+	// Increase total amount of sales
 	void addSales(int n) {
 		sales += n;
 	}
 	
+	// Returns total Sales
 	int getSales() {
 		return sales;
 	}
 	
+	// Returns amount of Bonus
 	double getBonus() {
 		return bonus;
 	}
 	
+	// Applies Bonus if not already applied
 	void managerBonus() {
 		
 		if(bonus == 5_000 || monthPay==0) {
