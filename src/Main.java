@@ -46,21 +46,21 @@ public class Main implements ActionListener {
 	Main(){
 		// Panel1 properties
 		panel1.setBounds(50, 400, 225, 300);
-		panel1.setBackground(Color.black);
+		//panel1.setBackground(Color.black);
 		
 		// Panel2 properties
 		panel2.setBounds(500,475, 225, 225);
-		panel2.setBackground(Color.black);
+		//panel2.setBackground(Color.black);
 		
 		// Panel3 properties
 		panel3.setBounds(50,125, 225, 230);
-		panel3.setBackground(Color.black);
+		//panel3.setBackground(Color.black);
 		
 		// Text Box properties -> 450 default
 		scroll.setBounds(325, 30, 600, 425);
 		textArea.setEditable(false);
 		textArea.setFont(new Font("Monospace", Font.BOLD, 18));
-		textArea.setBackground(Color.LIGHT_GRAY);
+		//textArea.setBackground(Color.LIGHT_GRAY);
 	
 		
 		// Tester Object button properties
@@ -152,7 +152,7 @@ public class Main implements ActionListener {
 		frame.add(scroll);
 		
 		// frame properties
-		frame.getContentPane().setBackground(Color.gray);
+		//frame.getContentPane().setBackground(Color.gray);
 		frame.setSize(950, 750);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(null);
@@ -198,6 +198,7 @@ public class Main implements ActionListener {
 				"Address: ",  location,
 				"Social Security Number: ", social,
 		};
+		
 		
 		UIManager.put("OptionPane.minimumSize",new Dimension(400,300)); // local dimensions of JOptionPane
 		JOptionPane.showConfirmDialog(null, fields, "Create Employee", JOptionPane.OK_CANCEL_OPTION); 	// Window opened with Fields
